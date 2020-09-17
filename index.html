@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualize Data with a Scatterplot Graph</title>
+    <link
+      rel="icon"
+      href="https://img.icons8.com/emoji/48/000000/syringe-emoji.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    body {
+      background-image: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    h1 {
+      font-family: "Montserrat", sans-serif;
+      font-size: larger;
+      margin: -40px 0 12px;
+      color: #222f3e;
+    }
+
+    svg {
+      border-radius: 4px;
+      text-align: left;
+    }
+
+    .legend {
+      position: absolute;
+      text-align: right;
+      top: 20%;
+      right: 15%;
+      font-family: sans-serif;
+      font-size: 14px;
+      padding: 20px;
+    }
+
+    .legend .text {
+      margin: 10px;
+      position: relative;
+      min-width: 200px;
+      padding-right: 30px;
+    }
+
+    .legend .box {
+      display: inline-block;
+      /* background-color: orange; */
+      height: 20px;
+      width: 20px;
+      border-radius: 4px;
+      position: absolute;
+      top: -3px;
+      right: 0;
+    }
+
+    .legend .box.no-doping {
+      background-color: #54a0ff;
+    }
+
+    .legend .box.doping {
+      background-color: #ff6b6b;
+    }
+
+    .tooltip {
+      font-family: sans-serif;
+      padding: 8px;
+      background-color: #6d6d6d;
+      align-items: center;
+      justify-content: center;
+      text-align: left;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+      position: absolute;
+      font-size: 14px;
+      border-radius: 2px;
+      z-index: 100;
+      visibility: hidden;
+      color: whitesmoke;
+      opacity: 0.9;
+    }
+  </style>
+  <body>
+    <h1 id="title">Doping VS. Non-Doping in Professional Bicycle Racing</h1>
+    <div id="tooltip" class="tooltip"></div>
+    <div id="legend" class="legend">
+      <div class="text">
+        No Doping Allegations
+        <div class="box no-doping"></div>
+      </div>
+      <div class="text">
+        Riders with Doping Allegations
+        <div class="box doping"></div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"
+      integrity="sha512-5xkNvFVCctXwOszeifE8pzjyDFlHvHDCKIrhwmuSbCtTHqc7IhA6/1tTNYXE8WmYvwP5KFQegCS1QRR4poYgjg=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+  </body>
+</html>
