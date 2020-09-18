@@ -12,6 +12,8 @@ const colors = [
   "#4575b4",
   "#313695",
 ];
+var months = [ "January", "February", "March", "April", "May", "June", 
+           "July", "August", "September", "October", "November", "December" ];
 var baseTemp = undefined;
 
 fetch(
@@ -46,9 +48,9 @@ fetch(
 function createGraph(data) {
   console.log(data, data.length);
   var width = $(window).width() - 280,
-    height = $(window).height() - 330,
+    height = $(window).height() - 260,
     xPadding = 60,
-    yPadding = 70,
+    yPadding = 20,
     xyrPadding = 70,
     barWidth = width / (data.length / 12);
   barHeight = height / 12;
@@ -86,46 +88,23 @@ function createGraph(data) {
     .attr("fill", (d) => colors[Math.round(tempScale(d.temp))])
     .attr("x", (d) => xScale(d.year))
     .attr("y", (d) => yScale(d.month))
-    // .attr('x', (d, i) => i * barWidth + xPadding)
-    // .attr('y', d => yScale(d[1]) - yPadding + xyrPadding)
     .attr("width", barWidth + 1)
-    .attr("height", barHeight);
-  // .attr('width', barWidth)
-  // .attr('height', d => height - yScale(d[1]) + yPadding + 'px')
-  // .on('mousemove',  (d, item) => {
-  //     let yearLine = "";
-  //     switch(item[0].substring(5, 7)) {
-  //         case '01':
-  //             yearLine = item[0].substring(0, 4) + ' Q1';
-  //             break;
-  //         case '04':
-  //             yearLine = item[0].substring(0, 4) + ' Q2';
-  //             break;
-  //         case '07':
-  //             yearLine = item[0].substring(0, 4) + ' Q3';
-  //             break;
-  //         case '10':
-  //             yearLine = item[0].substring(0, 4) + ' Q4';
-  //             break;
-  //         default:
-  //           // code block
-  //       };
+    .attr("height", barHeight)
+  .on('mousemove',  (d, item) => {
+    tooltip.style.left = d.pageX - (xyrPadding / 2) + "px";
+    tooltip.style.top = d.pageY - xyrPadding + "px";
+    tooltip.innerHTML = `${months[item.month-1]} ${item.year}</br>${Math.round((item.temp + Number.EPSILON) * 100) / 100}°C`;
 
-  //     let gdpLine = "$ " + item[1].toFixed(1).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' Billion'
-
-  //     tooltip.style.left = d.pageX + xyrPadding + 'px';
-  //     tooltip.style.top = height + xyrPadding + 'px';
-  //     tooltip.innerHTML = yearLine + "<br/>" + gdpLine;
-  //     tooltip.setAttribute("data-date", item[0]);
-  // })
-  // .on('mouseover', () => tooltip.style.visibility = "visible")
-  // .on('mouseout', () => tooltip.style.visibility = "hidden")
+    tooltip.setAttribute("data-year", item.year);
+  })
+  .on('mouseover', () => tooltip.style.visibility = "visible")
+  .on('mouseout', () => tooltip.style.visibility = "hidden")
 
   var xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
 
   var xAxisGroup = svg
     .append("g")
-    .attr("transform", `translate(0, ${height + xyrPadding + barHeight})`)
+    .attr("transform", `translate(0, ${height+barHeight+yPadding})`)
     .attr("id", "x-axis")
     .call(xAxis);
 
@@ -147,7 +126,7 @@ function createGraph(data) {
     .range([xPadding, width + xPadding]);
 
   const legendWidth = width;
-  const legendHeight = 500;
+  const legendHeight = 25;
 
   const legendRectWidth = legendWidth / colors.length;
   const legend = d3

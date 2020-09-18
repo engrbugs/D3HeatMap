@@ -23,31 +23,43 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* height: 100vh; */
+      height: 100vh;
       flex-direction: column;
-      margin: 0;
+      
     }
 
     h1 {
       font-family: "Montserrat", sans-serif;
       font-size: larger;
-      margin: -40px 0 12px;
+      margin: -40px 0 8px;
       color: #222f3e;
     }
-
+    h3 {
+      font-family: "Montserrat", sans-serif;
+      font-size: large;
+      font-weight: 400;
+      color: #222f3e;
+      margin: 0;
+    }
     svg {
       border-radius: 4px;
       text-align: left;
-      border: 2px solid black
     }
 
+    rect:hover {
+      fill: black;
+    }
+
+    #legend {
+      margin-top: 10px;
+    }
     .tooltip {
       font-family: sans-serif;
       padding: 8px;
       background-color: #6d6d6d;
       align-items: center;
       justify-content: center;
-      text-align: left;
+      text-align: center;
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
       position: absolute;
       font-size: 14px;
@@ -59,7 +71,7 @@
     }
   </style>
   <body>
-    <h1 id="title">Doping VS. Non-Doping in Professional Bicycle Racing</h1>
+    <h1 id="title">Monthly Global Land-Surface Temperature</h1>
     <div id="tooltip" class="tooltip"></div>
 
     <script
