@@ -12,8 +12,20 @@ const colors = [
   "#4575b4",
   "#313695",
 ];
-var months = [ "January", "February", "March", "April", "May", "June", 
-           "July", "August", "September", "October", "November", "December" ];
+var months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 var baseTemp = undefined;
 
 fetch(
@@ -90,26 +102,27 @@ function createGraph(data) {
     .attr("y", (d) => yScale(d.month))
     .attr("width", barWidth + 1)
     .attr("height", barHeight)
-  .on('mousemove',  (d, item) => {
-    tooltip.style.left = d.pageX - (xyrPadding / 2) + "px";
-    tooltip.style.top = d.pageY - xyrPadding + "px";
-    tooltip.innerHTML = `${months[item.month-1]} ${item.year}</br>${Math.round((item.temp + Number.EPSILON) * 100) / 100}°C`;
+    .on("mousemove", (d, item) => {
+      tooltip.style.left = d.pageX - xyrPadding / 2 + "px";
+      tooltip.style.top = d.pageY - xyrPadding + "px";
+      tooltip.innerHTML = `${months[item.month - 1]} ${item.year}</br>${
+        Math.round((item.temp + Number.EPSILON) * 100) / 100
+      }°C`;
 
-    tooltip.setAttribute("data-year", item.year);
-  })
-  .on('mouseover', () => tooltip.style.visibility = "visible")
-  .on('mouseout', () => tooltip.style.visibility = "hidden")
+      tooltip.setAttribute("data-year", item.year);
+    })
+    .on("mouseover", () => (tooltip.style.visibility = "visible"))
+    .on("mouseout", () => (tooltip.style.visibility = "hidden"));
 
   var xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
 
   var xAxisGroup = svg
     .append("g")
-    .attr("transform", `translate(0, ${height+barHeight+yPadding})`)
+    .attr("transform", `translate(0, ${height + barHeight + yPadding})`)
     .attr("id", "x-axis")
     .call(xAxis);
 
   var yAxis = d3.axisLeft(yScale).tickFormat((month) => {
-    // console.log(month)
     let date = new Date(0);
     date.setUTCMonth(month);
     return d3.timeFormat("%B")(date);
@@ -119,11 +132,6 @@ function createGraph(data) {
     .attr("transform", `translate(${xPadding}, 0)`)
     .attr("id", "y-axis")
     .call(yAxis);
-
-  var lxScale = d3
-    .scaleLinear()
-    .domain([0,11])
-    .range([xPadding, width + xPadding]);
 
   const legendWidth = width;
   const legendHeight = 25;
@@ -144,12 +152,4 @@ function createGraph(data) {
     .attr("width", legendRectWidth)
     .attr("height", 25)
     .attr("fill", (c) => c);
-
-  var lxAxis = d3.axisBottom(lxScale).tickFormat(d3.format("d"));
-
-  var lxAxisGroup = legend
-    .append("g")
-    .attr("transform", `translate(100, 100)`)
-    .attr("id", "axis")
-    .call(lxAxis);
 }
